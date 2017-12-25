@@ -10,7 +10,7 @@ def step_fractal_tree(img, iterations, color, x1, y1, angle, length):
     """
     x2 = x1+length*math.sin(math.radians(angle))
     y2 = y1+length*math.cos(math.radians(180-angle))
-    img.add(img.line((x1, y1), (x2, y2), stroke=svgwrite.rgb(150, 10, 16, '%')))
+    img.add(img.line((x1, y1), (x2, y2), stroke=color))
     if iterations > 1:
         step_fractal_tree(img, iterations - 1, color, x2, y2, angle - 30, 0.7 * length)
         step_fractal_tree(img, iterations - 1, color, x2, y2, angle + 30, 0.7 * length)
