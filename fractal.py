@@ -1,7 +1,8 @@
 import svgwrite
 import math
 
-golden_ratio = 0.618
+GOLDEN_RATIO = 0.618
+COLOR = 'blue'
 
 def step_fractal_tree(img, iterations, color, x1, y1, angle, length):
     """
@@ -26,7 +27,6 @@ def step_fractal_triangle(img, iterations, color, triangle_coordinates):
     Makes one iteration of splitting the triangle into four equal triangles.
     Than it recursively continues by splitting three triangles in the corners.
     """
-
     new = []
     old = triangle_coordinates
 
@@ -59,7 +59,10 @@ def fractal_triangle(img, iterations, size, color):
     step_fractal_triangle(img, iterations-1, color, new)
 
 def golden_fractal_step(img, iterations, color, center, start, dir, mode):
-    p = img.path('m' + str(start[0]) + ',' + str(start[1]),fill = 'none', stroke = color)
+    """
+    Recursive procedure for making fractals based on golden spiral.
+    """
+    p = img.path('m' + str(start[0]) + ',' + str(start[1]), fill = 'none', stroke = color)
     r = (center[1]-start[1],-center[0]+start[0])
 
     if dir==mode:
@@ -67,8 +70,8 @@ def golden_fractal_step(img, iterations, color, center, start, dir, mode):
     else:
         target = (center[0] - r[0], center[1] - r[1])
 
-    next1 = (target[0] + r[0]*golden_ratio, target[1] + r[1]*golden_ratio)
-    next2 = (target[0] - r[0]*golden_ratio, target[1] - r[1]*golden_ratio)
+    next1 = (target[0] + r[0]*GOLDEN_RATIO, target[1] + r[1]*GOLDEN_RATIO)
+    next2 = (target[0] - r[0]*GOLDEN_RATIO, target[1] - r[1]*GOLDEN_RATIO)
 
     p.push_arc(target, r=math.fabs(r[0]+r[1]), rotation=0,large_arc=False, absolute=True, angle_dir=dir)
     img.add(p)
@@ -78,10 +81,16 @@ def golden_fractal_step(img, iterations, color, center, start, dir, mode):
         golden_fractal_step(img, iterations - 1, color, next2, target, '+', mode)
 
 def golden_fractal_imp(img, iterations, size, color):
+    """
+    Initial step for making a fractal based on golden spiral.
+    """
     golden_fractal_step(img, iterations - 1, color, (-size,0), (0, 0), '-', '-')
     golden_fractal_step(img, iterations - 1, color, (size,0), (0, 0), '+', '-',)
 
 def golden_fractal_exp(img, iterations, size, color):
+    """
+    Initial step for making an expansive fractal based on golden spiral.
+    """
     golden_fractal_step(img, iterations - 1, color, (-size,0), (0, 0), '-', '+')
     golden_fractal_step(img, iterations - 1, color, (size,0), (0, 0), '+', '+')
 
@@ -94,8 +103,7 @@ def make_fractal(fname, function, iterations, base_size, color):
     function(img, iterations, base_size, color)
     img.save()
 
-color = 'blue'
-make_fractal("ftree.svg", fractal_tree, 12, 300, color)
-make_fractal("ftriangle.svg", fractal_triangle, 7, 300, color)
-make_fractal('goldenf1.svg', golden_fractal_imp, 10, 300, color)
-make_fractal('goldenf2.svg', golden_fractal_exp, 10, 300, color)
+#make_fractal("ftree.svg", fractal_tree, 12, 300, COLOR)
+#make_fractal("ftriangle.svg", fractal_triangle, 7, 300, COLOR)
+#make_fractal('goldenf1.svg', golden_fractal_imp, 10, 300, COLOR)
+#make_fractal('goldenf2.svg', golden_fractal_exp, 10, 300, COLOR)
