@@ -117,7 +117,7 @@ def make_fractal(fname, function, iterations, base_size, color):
     function(img, iterations, base_size, color)
     img.save()
 
-make_fractal("ftree.svg", fractal_tree, 12, 300, COLOR)
-make_fractal("ftriangle.svg", fractal_triangle, 7, 300, COLOR)
-make_fractal('goldenf1.svg', golden_fractal_imp, 10, 300, COLOR)
-make_fractal('goldenf2.svg', golden_fractal_exp, 10, 300, COLOR)
+#make_fractal("ftree.svg", fractal_tree, 12, 300, COLOR)
+#make_fractal("ftriangle.svg", fractal_triangle, 7, 300, COLOR)
+#make_fractal('goldenf1.svg', golden_fractal_imp, 10, 300, COLOR)
+#make_fractal('goldenf2.svg', golden_fractal_exp, 10, 300, COLOR)
